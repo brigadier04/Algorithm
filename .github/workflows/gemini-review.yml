@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main  # 백준 허브가 푸시하는 브랜치명으로 맞추세요.
-    paths:
-      - '**/백준/**' # 특정 폴더 내의 변경사항만 감지 (선택 사항)
 
 jobs:
   review:
