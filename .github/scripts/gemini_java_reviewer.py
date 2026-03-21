@@ -43,7 +43,7 @@ def main():
             
             # 최신 모델 호출 방식
             response = client.models.generate_content(
-                model="gemini-2.0-flash",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             
