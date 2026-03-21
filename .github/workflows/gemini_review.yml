@@ -3,30 +3,30 @@ name: Gemini Java Solution Reviewer
 on:
   push:
     branches:
-      - main  # 백준허브가 푸시하는 브랜치 이름으로 맞추세요 (보통 main)
+      - main 
 
 jobs:
   review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
       issues: write
+      pull-requests: write
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # 이전 커밋과 비교하기 위해 필요
+          fetch-depth: 2
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install google-generativeai PyGithub
+          pip install google-genai PyGithub
 
       - name: Run Gemini Reviewer
         env:
