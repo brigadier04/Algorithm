@@ -32,4 +32,4 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/gemini_java_reviewer.py
+        run: python .github/scripts/gemini_java_reviewer.py
