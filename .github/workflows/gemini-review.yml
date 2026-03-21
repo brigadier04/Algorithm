@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # 이전 커밋과 비교하기 위해 필요
+          fetch-depth: 0 # 이전 커밋과 비교하기 위해 필요
 
       - name: Set up Python
         uses: actions/setup-python@v4
