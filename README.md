@@ -1,35 +1,37 @@
-# 🚀 Algorithm Solutions with AI Code Review
+# 🚀 Algorithm Journey with Gemini Code Assist
 
-백준(Baekjoon) 문제 풀이와 Gemini 1.5 Flash API를 활용한 자동 코드 리뷰 시스템입니다.
-백준 허브(BaekjoonHub)를 통해 문제를 올리면, AI가 실시간으로 코드의 효율성과 가독성을 분석합니다.
+백준(Baekjoon) 문제 풀이 기록과 **Gemini Code Assist**를 활용한 AI 코드 리뷰 저장소입니다.
+단순한 코드 저장에 그치지 않고, Google의 최신 AI 모델로부터 실시간 피드백을 받으며 성장하는 것을 목표로 합니다.
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Language:** Java
-- **Automation:** GitHub Actions
-- **AI Engine:** Google Gemini 1.5 Flash API
-- **Tool:** BaekjoonHub (Chrome Extension)
+- **AI Tool:** Gemini Code Assist (GitHub App)
+- **Automation:** BaekjoonHub (Chrome Extension)
 
 ---
 
-## 🤖 AI Code Review System
+## 🤖 AI-Driven Learning Process
 
-문제를 풀고 리포지토리에 푸시되면, Gemini AI가 다음 항목을 분석하여 **Commit Comment**로 피드백을 남깁니다.
+이 리포지토리는 다음과 같은 워크플로우로 관리됩니다.
 
-1. **Complexity Analysis:** 시간 및 공간 복잡도 분석
-2. **Refactoring:** 더 효율적인 알고리즘이나 자료구조 제안
-3. **Clean Code:** 변수명, 가독성 및 코드 컨벤션 개선안
+1. **Solve:** 백준 허브를 통해 문제를 해결하고 코드를 업로드합니다.
+2. **Review:** **Gemini Code Assist**가 업로드된 코드를 분석하여 개선 방향을 제안합니다.
+   - **Complexity:** 시간/공간 복잡도 최적화 여부 확인
+   - **Quality:** 코드 가독성 및 컨벤션 준수 여부 체크
+   - **Severity:** 'Medium' 수준의 심도 있는 로직 분석
+3. **Refactor:** AI의 피드백을 바탕으로 코드를 복기하고 더 나은 설계를 고민합니다.
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```text
 .
-├── .github
-│   ├── workflows      # GitHub Actions 자동화 설정
-│   └── scripts        # Gemini API 호출용 파이썬 스크립트
 ├── 백준                # 백준 허브를 통해 자동 업로드된 문제들
+│   ├── Gold
+│   ├── Silver
+│   └── ...
 └── README.md
