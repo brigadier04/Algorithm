@@ -1,5 +1,6 @@
 import os
 import subprocess
+import requests
 import google.generativeai as genai
 
 # 1. Gemini 설정
@@ -7,19 +8,23 @@ genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def get_changed_files():
-    """최근 커밋에서 추가되거나 수정된 소스 파일 목록을 가져옵니다."""
     try:
-        # HEAD^ 대신 HEAD~1을 사용하거나, 현재 커밋 자체의 변경사항을 확인
-        # 백준 허브의 푸시 특성을 고려하여 모든 소스 파일을 검사하도록 최적화
-        result = subprocess.check_output(['git', 'diff', '--name-only', 'HEAD~1', 'HEAD'], text=True)
+        # 최신 원격 기준으로 diff
+        subprocess.run(['git', 'fetch', 'origin', 'main'], check=True)
+
+        result = subprocess.check_output(
+            ['git', 'diff', '--name-only', 'origin/main', 'HEAD'],
+            text=True
+        )
+
         files = result.splitlines()
-        
-        # .github 폴더나 README.md는 제외하고 실제 소스 코드만 필터링
+
         source_extensions = ('.cpp', '.py', '.java', '.c', '.js', '.ts')
         changed_files = [f for f in files if f.endswith(source_extensions) and '.github' not in f]
-        
-        print(f"감지된 변경 파일: {changed_files}") # 로그 확인용
+
+        print(f"감지된 변경 파일: {changed_files}")
         return changed_files
+
     except Exception as e:
         print(f"파일 목록을 가져오는 중 오류 발생: {e}")
         return []
@@ -64,8 +69,22 @@ def main():
             
             # GitHub CLI를 사용하여 댓글 작성
             commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-            os.system(f"gh api repos/$GITHUB_REPOSITORY/commits/{commit_hash}/comments -F body=@review_msg.txt")
-            print(f"{file_path} 리뷰 등록 완료!")
+
+            url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/commits/{commit_hash}/comments"
+
+            headers = {
+                "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+                "Accept": "application/vnd.github+json"
+            }
+
+            data = {
+                "body": f"### 🤖 Gemini AI 알고리즘 리뷰\n\n{review_result}"
+            }
+
+            response = requests.post(url, headers=headers, json=data)
+
+            print("댓글 생성 상태:", response.status_code)
+            print(response.text)
             
         except Exception as e:
             print(f"Gemini API 호출 또는 댓글 작성 중 오류: {e}")
