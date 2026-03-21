@@ -10,7 +10,7 @@ COMMIT_SHA = os.getenv("GITHUB_SHA")
 
 # Gemini 설정
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 def get_changed_java_files():
     g = Github(GITHUB_TOKEN)
